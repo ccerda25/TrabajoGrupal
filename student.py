@@ -6,9 +6,10 @@ def leerEstudiante():
 
     while True:
         studentName = input("Ingrese el nombre del estudiante: ")
+
         try:
             float(studentName)
-            print("El nombre del estudiante no puede ser un número")
+            print("El nombre del estudiante no puede ser un número.")
 
         except ValueError:
             return studentName
@@ -55,3 +56,8 @@ def registrarNota():
 
         except ValueError:
             print("Debe ingresar un valor numérico.")
+
+
+def limpiarDatos():
+    subjects.clear()
+    grades.clear()

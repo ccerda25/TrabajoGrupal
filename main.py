@@ -5,30 +5,60 @@ import reports as rep
 
 def main():
 
-    studentName = stu.leerEstudiante()
-
     while True:
 
-        option = stu.elegirOpcion()
+        studentName = stu.leerEstudiante()
 
-        if option == 1:
-            stu.registrarNota()
+        print("Nombre registrado:", studentName)
 
-        elif option == 2:
+        while True:
 
-            average = gra.calcularPromedio(stu.grades)
+            option = stu.elegirOpcion()
 
-            performance = gra.nivelRendimiento(average)
+            if option == 1:
 
-            rep.mostrarResultado(
-                studentName,
-                stu.subjects,
-                stu.grades,
-                average,
-                performance
-            )
+                stu.registrarNota()
 
-            break
+            elif option == 2:
+
+                if len(stu.grades) == 0:
+                    print("\nDebe registrar al menos una asignatura.")
+                    continue
+
+                average = gra.calcularPromedio(stu.grades)
+
+                performance = gra.nivelRendimiento(average)
+
+                rep.mostrarResultado(
+                    studentName,
+                    stu.subjects,
+                    stu.grades,
+                    average,
+                    performance
+                )
+
+                break
+
+        while True:
+
+            anotherStudent = input(
+                "\n¿Desea registrar otro estudiante? (s/n): "
+            ).lower()
+
+            if anotherStudent == "s":
+
+                stu.limpiarDatos()
+                print("\n--- REGISTRO DE NUEVO ESTUDIANTE ---")
+                break
+
+            elif anotherStudent == "n":
+
+                print("\nGracias por utilizar el programa.")
+                return
+
+            else:
+
+                print("Ingrese solamente 's' para sí o 'n' para no.")
 
 
 main()
