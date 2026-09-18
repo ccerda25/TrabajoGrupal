@@ -1,77 +1,34 @@
-from validaciones import readStudent
-from validaciones import chooseOp
-from validaciones import readSubject
-from validaciones import readGrade
-
-from calculos import calcAverage
-from calculos import detStatus
-from calculos import detPerf
-
-from resultados import getRecommendation
-from resultados import showResults
+import student as stu
+import grades as gra
+import reports as rep
 
 
 def main():
 
+    studentName = stu.leerEstudiante()
+
     while True:
 
-        student = readStudent()
+        option = stu.elegirOpcion()
 
-        subjects = []
-        grades = []
+        if option == 1:
+            stu.registrarNota()
 
-        while True:
+        elif option == 2:
 
-            option = chooseOp()
+            average = gra.calcularPromedio(stu.grades)
 
-            if option == 1:
+            performance = gra.nivelRendimiento(average)
 
-                subject = readSubject()
-                grade = readGrade()
+            rep.mostrarResultado(
+                studentName,
+                stu.subjects,
+                stu.grades,
+                average,
+                performance
+            )
 
-                subjects.append(subject)
-                grades.append(grade)
-
-                print("Nota registrada correctamente.")
-
-            elif option == 2:
-
-                if len(grades) > 0:
-
-                    average = calcAverage(grades)
-                    status = detStatus(average)
-                    performance = detPerf(average)
-                    recommendation = getRecommendation(performance)
-
-                    showResults(
-                        student, subjects, grades, average, status, performance, recommendation
-                    )
-
-                else:
-
-                    print("\nDebe registrar al menos una calificación.")
-
-            elif option == 3:
-
-                if len(grades) > 0:
-
-                    average = calcAverage(grades)
-                    status = detStatus(average)
-                    performance = detPerf(average)
-                    recommendation = getRecommendation(performance)
-
-                    showResults(student, subjects, grades, average, status, performance, recommendation)
-
-                    break
-
-                else:
-
-                    print("\nDebe registrar al menos una calificación.")
-
-            elif option == 4:
-
-                print("\nGracias por utilizar el programa.")
-                return
+            break
 
 
 main()
